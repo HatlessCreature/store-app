@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import AppCustomers from './pages/AppCustomers';
 import AppProducts from './pages/AppProducts';
+import LatestPurchases from './pages/LatestPurchases';
 
 function App() {
   return (
@@ -20,8 +21,11 @@ function App() {
           </ul>
         </nav>
         <Switch>
-          <Route path='/customers'>
+          <Route exact path='/customers'>
             <AppCustomers />
+          </Route>
+          <Route path={`/customers/:id`}>
+            <LatestPurchases />
           </Route>
           <Route path='/products'>
             <AppProducts />

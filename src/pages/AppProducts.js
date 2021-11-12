@@ -4,9 +4,19 @@ import ProductService from '../services/ProductService';
 
 export default function AppProducts() {
     const [products, setProducts] = useState(ProductService.getAll());
+    const [filter, setFilter] = useState("");
 
     return (
         <div>
+            <input
+                value={filter}
+                placeholder='Filter'
+                onChange={(e) => {
+                    setFilter(e.target.value);
+                    console.log(filter);
+                }
+                }
+            />
             <table>
                 <thead>
                     <tr>
@@ -16,7 +26,8 @@ export default function AppProducts() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => (
+
+                    {products.filter(product => product.name.startsWith(filter)).map((product) => (
                         <tr key={product.id}>
                             <td>{product.name}</td>
                             <td>{product.manufacturer}</td>

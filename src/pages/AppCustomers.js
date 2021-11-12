@@ -11,6 +11,31 @@ export default function AppCustomers() {
         { id: 6, company: "Marin SZTR", name: "Rinoslav Rogonja", dateOfRegistration: new Date() },
         { id: 7, company: "Karin Privreda", name: "Rinoslav Rogonja", dateOfRegistration: new Date() }
     ]);
+    const [count, setCount] = useState(7);
+
+    const increaseCount = () => {
+        setCount(count + 1);
+    };
+
+    const [newCustomer, setNewCustomer] = useState({
+        id: count,
+        company: '',
+        name: '',
+        dateOfRegistration: new Date()
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        setCustomers([...customers, { ...newCustomer }]);
+
+        setNewCustomer({
+            id: count,
+            company: '',
+            name: '',
+            dateOfRegistration: new Date()
+        });
+    };
 
     const handleDelete = (deleteIndex) => {
         // setCustomers(customers.filter((el, index) => index !== deleteIndex));
@@ -45,6 +70,41 @@ export default function AppCustomers() {
                     ))}
                 </tbody>
             </table>
+
+            <form
+                style={{ display: 'flex', flexDirection: 'column', marginBottom: 25 }}
+                onSubmit={handleSubmit}
+            >
+                <input
+                    value={newCustomer.company}
+                    placeholder='Company'
+                    onChange={(e) =>
+                        setNewCustomer({ ...newCustomer, company: e.target.value })
+                    }
+                />
+                <input
+                    value={newCustomer.name}
+                    placeholder='Name'
+                    onChange={(e) => setNewCustomer({ ...newCustomer, name: e.target.value })}
+                />
+                <input
+                    onChange={(e) => {
+                        console.log(e.target.value);
+                        setNewCustomer({
+                            ...newCustomer,
+                            dateOfRegistration: new Date(e.target.value),
+                        });
+                    }}
+                    value={
+                        newCustomer.dateOfRegistration
+                            ? newCustomer.dateOfRegistration.toISOString().substr(0, 10)
+                            : ''
+                    }
+                    type='date'
+                    placeholder='Date of registration'
+                />
+                <button onClick={increaseCount}>Add new customer</button>
+            </form>
         </div>
     );
 }

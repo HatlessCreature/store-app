@@ -2,8 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import AppCustomers from './components/AppCustomers';
-import AppProducts from './components/AppProducts';
+import AppCustomers from './pages/AppCustomers';
+import AppProducts from './pages/AppProducts';
 
 function App() {
   return (
